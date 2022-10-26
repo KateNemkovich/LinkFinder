@@ -1,0 +1,10 @@
+﻿<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>LinkFinder</Name>
+        <Assembly>LinkFinder/LinkFinder.dll</Assembly>
+        <AddInId>9D93C261-6493-4B0B-AA4D-00B29B533BAC</AddInId>
+        <FullClassName>LinkFinder.Application</FullClassName>
+        <VendorId>CompanyName</VendorId>
+        <VendorDescription>Description</VendorDescription>
+    </AddIn>
+</RevitAddIns>
