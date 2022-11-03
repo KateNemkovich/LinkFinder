@@ -36,13 +36,18 @@ public class Command : ExternalCommand
             var outline = new Outline(minimumPoint, maximumPoint);
             var boundingBoxIntersectsFilter = new BoundingBoxIntersectsFilter(outline); 
             
-            //Получаем список документов и из них выбираем один который связанный
-            var documentLink = Application.Documents.Cast<Document>().Where(document => document.IsLinked);
+            //Получаем список связей видимых на виде
+            var documentLinks = new FilteredElementCollector(Document,ActiveView.Id)
+                    .WhereElementIsElementType()
+                    .OfCategory(BuiltInCategory.OST_RvtLinks)
+                    .ToElements();
+                 
             var count=0;
             
-            foreach (var document in documentLink)
+            foreach (var element in documentLinks)
             {
-                var doors = new FilteredElementCollector(document)
+                var link = (RevitLinkInstance) element;
+                var doors = new FilteredElementCollector(link.GetLinkDocument())
                     .WhereElementIsNotElementType()
                     .OfCategory(BuiltInCategory.OST_Doors)
                     .WherePasses(boundingBoxIntersectsFilter)
